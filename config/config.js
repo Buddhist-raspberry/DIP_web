@@ -77,4 +77,10 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
+  proxy: {
+    '/api': {
+      target: 'http://121.4.219.235:5000',
+      changeOrigin: true,
+    },
+  },
 });

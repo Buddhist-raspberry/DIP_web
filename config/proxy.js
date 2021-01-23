@@ -7,8 +7,8 @@
  */
 export default {
   dev: {
-    '/api/': {
-      target: 'https://preview.pro.ant.design',
+    '/process': {
+      target: 'http://121.4.219.235:5000',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -16,8 +16,8 @@ export default {
     },
   },
   test: {
-    '/api/': {
-      target: 'https://preview.pro.ant.design',
+    '/process': {
+      target: 'http://121.4.219.235:5000',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -25,8 +25,8 @@ export default {
     },
   },
   pre: {
-    '/api/': {
-      target: 'your pre url',
+    '/process': {
+      target: 'http://121.4.219.235:5000',
       changeOrigin: true,
       pathRewrite: {
         '^': '',

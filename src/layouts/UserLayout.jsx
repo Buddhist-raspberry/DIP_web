@@ -49,9 +49,9 @@ const UserLayout = (props) => {
              </Link>
             </div>
             */}
-            <div className={styles.desc}>
+            {/* <div className={styles.desc}>
               设计先进且稳健的学习模型，将给定的CT扫描分为COVID-19、CAP和正常病例三类。
-            </div>
+            </div> */}
           </div>
           {children}
         </div>

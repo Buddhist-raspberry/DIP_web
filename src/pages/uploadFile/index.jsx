@@ -13,6 +13,12 @@ import ProTable from '@ant-design/pro-table';
 import ProCard from '@ant-design/pro-card';
 import { Link, connect, history, FormattedMessage, formatMessage } from 'umi';
 import styles from './style.less';
+import App from './App';
+
+const mapStateToProps = ({ covid, loading }) => ({
+  result: covid.result
+});
+
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -26,37 +32,41 @@ const data = [
   },
 ];
 
-const UploadFile = (props) => {
-  const { submitting } = props;
+const UploadFile = ({ result, dispatch }) => {
   const [form] = Form.useForm();
-  const actionRef = useRef();
-  const columns = [
-    {
-      title: '文件夹名称',
-      dataIndex: 'name',
-      valueType: 'textarea',
-      search: false,
-      align: 'center',
-    },
-    {
-      title: '上传时间',
-      dataIndex: 'time',
-      valueType: 'date',
-      search: false,
-      align: 'center',
-    },
-    {
-      title: '分析结果',
-      dataIndex: 'result',
-      valueType: 'textarea',
-      ellipsis: true,
-      search: false,
-      align: 'center',
-    },
-  ];
+  // const actionRef = useRef();
+  // const columns = [
+  //   {
+  //     title: '文件夹名称',
+  //     dataIndex: 'name',
+  //     valueType: 'textarea',
+  //     search: false,
+  //     align: 'center',
+  //   },
+  //   {
+  //     title: '上传时间',
+  //     dataIndex: 'time',
+  //     valueType: 'date',
+  //     search: false,
+  //     align: 'center',
+  //   },
+  //   {
+  //     title: '分析结果',
+  //     dataIndex: 'result',
+  //     valueType: 'textarea',
+  //     ellipsis: true,
+  //     search: false,
+  //     align: 'center',
+  //   },
+  // ];
 
-  const onFinish = (values) => {
-    console.log(values);
+  const onFinish = values => {
+    dispatch({
+      type: 'covid/predict',
+      payload: { ...values },
+    }).then(response => {
+      console.log(result);
+    });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -74,7 +84,8 @@ const UploadFile = (props) => {
       <Row gutter={24}>
         <Col xl={8} lg={8} md={6} sm={4} xs={4} />
         <Col xl={8} lg={8} md={12} sm={16} xs={16}>
-          <Form
+            <App />
+            <Form
             hideRequiredMark
             form={form}
             name="basic"
@@ -85,27 +96,6 @@ const UploadFile = (props) => {
             onFinishFailed={onFinishFailed}
             onValuesChange={onValuesChange}
           >
-            <FormItem
-              style={{
-                marginTop: 30,
-              }}
-            >
-              <div
-                style={{
-                  backgroundColor: '#c7ecee',
-                }}
-              >
-                <ProFormUploadDragger
-                  max={3}
-                  name="CT_File"
-                  directory
-                  description="请以文件夹形式上传CT切片集"
-                  style={{
-                    height: 300,
-                  }}
-                />
-              </div>
-            </FormItem>
             <FormItem>
               <Button
                 type="primary"
@@ -117,14 +107,14 @@ const UploadFile = (props) => {
                 htmlType="submit"
                 icon={<PartitionOutlined />}
               >
-                确认
+                诊断
               </Button>
             </FormItem>
           </Form>
         </Col>
         <Col xl={8} lg={8} md={6} sm={4} xs={4} />
         <Col xl={6} lg={6} md={6} sm={4} xs={4} />
-        <Col xl={12} lg={12} md={12} sm={16} xs={16}>
+        {/* <Col xl={12} lg={12} md={12} sm={16} xs={16}>
           <div className={styles.root}>
             <ProTable
               style={{
@@ -142,10 +132,11 @@ const UploadFile = (props) => {
               columns={columns}
             />
           </div>
-        </Col>
+        </Col> */}
       </Row>
     </GridContent>
   );
 };
 
-export default UploadFile;
+export default connect(mapStateToProps)(UploadFile);
+

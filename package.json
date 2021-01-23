@@ -58,6 +58,10 @@
     "@types/lodash.debounce": "^4.0.6",
     "@types/lodash.isequal": "^4.5.5",
     "@umijs/route-utils": "^1.0.33",
+    "@uppy/core": "^1.15.0",
+    "@uppy/locales": "^1.17.0",
+    "@uppy/react": "^1.11.0",
+    "@uppy/tus": "^1.8.2",
     "antd": "^4.9.4",
     "bizcharts": "^3.5.3-beta.0",
     "bizcharts-plugin-slider": "^2.1.1-beta.1",
@@ -128,5 +132,6 @@
     "src/**/*.less",
     "config/**/*.js*",
     "scripts/**/*.js"
-  ]
+  ],
+  "proxy": "http://172.16.136.249:8080"
 }
